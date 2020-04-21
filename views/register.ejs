@@ -1,0 +1,76 @@
+<div class="container">
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body border-light shadow">
+        <h1 class="text-center mb-3">
+          <i class="fas fa-user-plus"></i> Kayıt Ol
+        </h1>
+        <%- include ('partials/messages') %>
+        <form action="/users/register" method="POST">
+          <div class="form-group">
+            <label for="name" class="font-weight-bold">Ad</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Adınızı Giriniz"
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="surname" class="font-weight-bold">Soyad</label>
+            <input
+              type="surname"
+              id="surname"
+              name="surname"
+              class="form-control"
+              placeholder="Soyadınızı Giriniz"
+              value="<%= typeof surname != 'undefined' ? surname : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email" class="font-weight-bold">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Emailinizi Giriniz"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" class="font-weight-bold">Parola</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Parolanız Giriniz"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password2" class="font-weight-bold">Parola</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Tekrar Parolanızı Giriniz"
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Kayıt Ol
+          </button>
+        </form>
+        <p class="lead mt-4">Üyeliğiniz Var Mı ? <a href="/users/login">Giriş Yap</a></p>
+      </div>
+      <div class="text-center fa-xs">
+        <p>Soru ve sorunlarınız için yardimmasasi@mhrs.gov.tr adresimizi kullanarak bize ulaşabilirsiniz.</p>
+       </div>
+    </div>
+  </div>
+</div>
