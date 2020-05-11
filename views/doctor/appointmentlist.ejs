@@ -1,0 +1,173 @@
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand font-weight-bold" href="/doctor/appointment-list/1"><span class="fa fa-hospital-o" ></span> E-Randevu</a>
+  
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent-4"
+        aria-controls="navbarSupportedContent-4"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/doctor/appointment-list/1">
+              Randevular
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/doctor/patient-list/1">Hastalar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/doctor/givetest">Tahlil Oluştur</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/doctor/giverecipes">Reçete Oluştur</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/doctor/testresult">Tahlil Sonucu Girme</a>
+          </li>
+        </ul>
+  
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdownMenuLink-4"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-user"></i> Profil
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right dropdown-info"
+              aria-labelledby="navbarDropdownMenuLink-4"
+            >
+              <a class="dropdown-item" href="/doctor/doctor">Hesap Bilgilerim</a>
+              <a class="dropdown-item" href="/doctor/logout">Çıkış</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col m-auto">
+        <div class="card card-body border-light shadow">
+          <h1 class="text-center mb-3">
+            <i class="fas fa-laptop-medical"></i> Hasta Randevuları
+            
+          </h1>
+          <div class="card mt-2">
+            <div class="card-header">
+              Hasta Randevuları
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Hastane Adı</th>
+                    <th scope="col">Klinik</th>
+                    <th scope="col">Doktor Adı</th>
+                    <th scope="col">Hasta Adı</th>
+                    <th scope="col">Tarih</th>
+                    <th scope="col">Tedavi</th>
+                    <th scope="col">Uygula</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%  i = 1;  %>  
+                  <% appo.forEach((item)=> { %>
+                  <tr>
+                    <th scope="row"><%= i++ %></th>
+                    <td><%= item.hospitalName %></td>
+                    <td><%= item.polyclinicName %></td>
+                    <td><%= item.doctorName %></td>
+                    <td><%= item.userName %></td>
+                    <td><%= item.date %></td>
+                    <% if(item.treatment) {%>
+                      <td><%=  "Evet" %></td>
+                      <% }else{%>
+                      <td><%=  "Hayır" %></td>
+                      <%  }%>
+                    
+                    <td>
+    
+                   <a href="/doctor/appointment-list/delete/<%= item._id %>"  onclick="sweetalertClick()"><i  class="fa fa-trash-o" aria-hidden="true"></i></a> 
+               
+                  <a href="/doctor/appointment-list/accept/<%= item._id %>" onclick="sweetalertClick()">   <i class="fa fa-check ml-1" aria-hidden="true"></i></a> 
+                    </td>          
+                  </tr>
+                  <% }) %>     
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer text-muted">
+              <div class="row">
+                <div class="col pt-2">
+                  <p>Toplam Sayfa: <span class="badge-primary p-1 pl-2 pr-2"><%= pages %></span></p>
+                </div>
+                <div class="col">
+                  <% if (pages > 0) { %>
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-end">
+                        <% if (current == 1) { %>
+                          <li class="page-item disabled"><a class="page-link" >İlk</a></li>
+                        <% } else { %>
+                          <li class="page-item "><a class="page-link" href="/patients/appointment-list/1"  tabindex="-1">İlk</a></li>
+                        <% } %>
+                        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                          <li class="page-item disabled"><a class="page-link" >...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                            <% if (i == current) { %>
+                                <li class="page-item active"><a class="page-link" ><%= i %></a></li>
+                            <% } else { %>
+                                <li class="page-item "><a class="page-link" href="/doctor/appointment-list/<%= i %>"><%= i %></a></li>
+                            <% } %>
+                            <% if (i == Number(current) + 4 && i < pages) { %>
+                                <li class="page-item disabled"><a class="page-link" >...</a></li>
+                            <% } %>
+                        <% } %>
+                        <% if (current == pages) { %>
+                            <li class="page-item disabled"><a class="page-link" >Son</a></li>
+                        <% } else { %>
+                            <li class="page-item "><a class="page-link" href="/doctor/appointment-list/<%= pages %>">Son</a></li>
+                        <% } %>
+                    </ul>
+                <% } %>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+    
+      </div>
+    </div>
+  </div>
+  
+  
+  <script>
+    function sweetalertClick(){
+      Swal.fire({
+  icon: 'success',
+  title: 'İşleniyor',
+  showConfirmButton: false,
+  timer: 800
+})
+}
+   </script>

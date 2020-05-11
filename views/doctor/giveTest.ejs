@@ -1,0 +1,139 @@
+<!--Navbar -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" rel="stylesheet" />
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand font-weight-bold" href="/doctor/appointment-list/1"><span class="fa fa-hospital-o" ></span> E-Randevu</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent-4"
+      aria-controls="navbarSupportedContent-4"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/doctor/appointment-list/1">
+            Randevular
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/doctor/patient-list/1">Hastalar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/doctor/givetest">Tahlil Oluştur</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/doctor/giverecipes">Reçete Oluştur</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/doctor/testresult">Tahlil Sonucu Oluşturma</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink-4"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i> Profil
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right dropdown-info"
+            aria-labelledby="navbarDropdownMenuLink-4"
+          >
+            <a class="dropdown-item" href="/doctor/doctor">Hesap Bilgilerim</a>
+            <a class="dropdown-item" href="/doctor/logout">Çıkış</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <!--/.Navbar -->
+  
+  <div class="container">
+    <div class="card card-body border-light shadow mt-4">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center mb-3">
+            <i class="fas fa-book-medical"></i> Tahlil Ver
+          </h1>
+  
+          <form action="/doctor/giveTest" method="POST">
+            <div class="form-group">
+                <!--Hasta TC-->
+                <label class="my-1 mr-2" for="hastaTC">Hasta TC</label>
+                <input name="hastaTC" type="text" id="hastaTC" class="form-control">
+            </div>
+            <div class="form-group">
+                <!--polyclinic name-->
+                <label class="my-1 mr-2" for="clinics">Klinikler</label>
+                <select
+                  name="district"
+                  class="custom-select my-1 mr-sm-2"
+                  id="clinikler"
+                >
+                <% clinics.forEach((item)=> { %>
+                  <option value= <%=item.polyclinicName%> > <%=item.polyclinicName%> </option>
+                <% }) %>  
+                </select>
+            </div>
+            <div class="form-group">
+                <!--test name-->
+                <label class="my-1 mr-2" for="testName">Tahlil Adı</label>
+                <input name="testName" type="text" id="testName" class="form-control">
+            </div>
+            <div class="form-group">
+                <!--date time-->
+                <label class="my-1 mr-2" for="date">Tarih</label>
+                <input name="date" type="text" id="datePicker" class="form-control">
+            </div>
+
+            <button onclick="sweetalertClick()" type="submit" class="btn btn-primary btn-block my-1">
+              Tahlili Kaydet
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="text-center fa-xs">
+      
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        $('#datePicker').datetimepicker({
+            timepicker: true,
+            datepicker: true,
+            format: 'Y-m-d H:i',
+            value: '10-03-2020 09:00',
+            step: 15,
+            allowTimes: ['09:00','09:15','09:30','09:45','10:00','10:15','10:30','10:45','11:00','11:15','11:30','11:45','13:00','13:15','13:30','13:45','14:00','14:15','14:30','14:45','15:00','15:15','15:30','15:45','16:00','16:15','16:30','16:45']
+        })
+    </script>
+
+<script>
+    function sweetalertClick(){
+      Swal.fire({
+  icon: 'success',
+  title: 'İşleniyor',
+  showConfirmButton: false,
+  timer: 800
+  })
+  }
+ </script>

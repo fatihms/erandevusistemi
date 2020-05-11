@@ -1,11 +1,18 @@
+require('dotenv').config()
 const express = require('express')
+require('express-async-errors')
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('passport')
+const formidableMiddleware = require('express-formidable');
+const bodyParser = require('body-parser')
+
 
 const app = express()
+
+//app.use(bodyParser.json())
 
 //Passport config
 require('./config/passport')(passport)
@@ -56,8 +63,18 @@ app.use((req, res, next)=>{
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'))
 app.use('/patients', require('./routes/patients'))
-app.use('/admin', require('./routes/admin'))
+app.use('/doctor', require('./routes/doctor'))
+//app.use('/admin', require('./routes/admin'))
+app.use('/admin',require('./routes/admin.router'))
 
+app.use(function (req, res, next) {
+    res.status(404).send("404")
+  })
+
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Hata')
+})
 
 const port = process.env.PORT || 5000   
 

@@ -4,6 +4,6 @@ module.exports = {
             return next()
         }
         req.flash('error_msg', 'Lütfen önce giriş yapınız')
-        res.redirect('/users/login')
+        res.redirect('/doctor/login')
     }
 } 

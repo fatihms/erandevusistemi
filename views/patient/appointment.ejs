@@ -1,8 +1,8 @@
 <!--Navbar -->
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" rel="stylesheet" />
 <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
   <div class="container">
-    <a class="navbar-brand" href="#">E-Randevu</a>
+    <a class="navbar-brand font-weight-bold" href="/patients/appointment/1"><span class="fa fa-hospital-o" ></span> E-Randevu</a>
 
     <button
       class="navbar-toggler"
@@ -15,23 +15,24 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+ 
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/patients/appointment">
+          <a class="nav-link" href="/patients/appointment/1">
             Randevu Oluştur
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/patients/past">Randevu Geçmişi</a>
+          <a class="nav-link" href="/patients/appointment-past/1">Randevu Geçmişi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/patients/request">Randevu Tapleplerim</a>
+          <a class="nav-link" href="/patients/appointment-request/1">Randevu Tapleplerim</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/patients/request">Sonuçlarım</a>
+          <a class="nav-link" href="/patients/test-result/1">Sonuçlarım</a>
         </li>
       </ul>
 
@@ -50,8 +51,8 @@
             class="dropdown-menu dropdown-menu-right dropdown-info"
             aria-labelledby="navbarDropdownMenuLink-4"
           >
-            <a class="dropdown-item" href="#">Hesap Bilgilerim</a>
-            <a class="dropdown-item" href="#">Çıkış</a>
+            <a class="dropdown-item" href="/patients/patient">Hesap Bilgilerim</a>
+            <a class="dropdown-item" href="/users/logout">Çıkış</a>
           </div>
         </li>
       </ul>
@@ -65,174 +66,113 @@
     <div class="row">
       <div class="col">
         <h1 class="text-center mb-3">
-          <i class="fas fa-sign-in-alt"></i> E-Randevu
+          <i class="fas fa-laptop-medical"></i> E-Randevu
         </h1>
 
-        <form action="/patients/appointment" method="POST">
-          <!--ŞEHİR-->
-          <label class="my-1 mr-2" for="inlineFormCustomSelectPref"
-            >Şehirler</label
-          >
-          <select
-            name="city"
-            class="custom-select my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-          >
-            <option selected>Şehirler...</option>
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-            <option value="3">İzmir</option>
-          </select>
-
-          <!--İLÇE-->
-          <label class="my-1 mr-2" for="inlineFormCustomSelectPref">İlçe</label>
-          <select
-            name="district"
-            class="custom-select my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-          >
-            <option selected>İlçe...</option>
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-            <option value="3">İzmir</option>
-          </select>
-
-          <!--KLİNİK-->
-          <label class="my-1 mr-2" for="inlineFormCustomSelectPref"
-            >Klinik</label
+        <form action="/patients/appointment/<%= pages %>" method="POST" class="form-group">
+          <!--Doctor-->
+          <label class="my-1 mr-2" for="doctor"
+            >Doktor Seçiniz</label
           >
           <select
             name="district"
-            class="custom-select my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
+            class="custom-select my-1 mr-sm-2 form-control"
+            id="doctor"
           >
-            <option selected>Klinik...</option>
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-            <option value="3">İzmir</option>
-          </select>
-
-          <!--MUAYENE YERİ-->
-          <label class="my-1 mr-2" for="inlineFormCustomSelectPref"
-            >Muayene Yeri</label
-          >
-          <select
-            name="district"
-            class="custom-select my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-          >
-            <option selected>Muayene Yeri...</option>
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-            <option value="3">İzmir</option>
-          </select>
-
-          <!--HEKİM-->
-          <label class="my-1 mr-2" for="inlineFormCustomSelectPref"
-            >Hekim</label
-          >
-          <select
-            name="district"
-            class="custom-select my-1 mr-sm-2"
-            id="inlineFormCustomSelectPref"
-          >
-            <option selected>Hekim...</option>
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-            <option value="3">İzmir</option>
-          </select>
+          <% docs.forEach((item)=> { %>
+              <option value= <%=item.doctorName%> > <%=item.doctorName%>(<%=item.polyclinicName%>)</option>
+          <% }) %>  
           <!--TARİH-->
-        <% console.log("dd") %>
+          <div class="form-group">
+            <!--date time-->
+            <label class="my-1 mr-2" for="date">Test Yapılma Tarihi</label>
+            <input name="date" type="text" id="datePicker" class="form-control">
+          </div>
           <button type="submit" class="btn btn-primary btn-block my-1">
             Randevu Ara
           </button>
+          <%- include ('../partials/messages') %>
         </form>
+
+
       </div>
       <div class="col">
         <h1 class="text-center mb-3">
-          <i class="fas fa-sign-in-alt"></i> E-Randevu
+          <i class="fas fa-microscope"></i> E-Tahlil
         </h1>
 
         <div class="card mt-5">
           <div class="card-header">
-            Featured
+            Yapılacak Tahlilleriniz
           </div>
           <div class="card-body">
             <table class="table">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">No</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Klinik</th>
+                  <th scope="col">Tahlil adı</th>
+                  <th scope="col">Tarihi</th>
+                  <th scope="col">Tahlil Sonucu</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th>
-                    <input
-                      type="radio"
-                      aria-label="Radio button for following text input"
-                    />
-                  </th>
-                  <td scope="row">1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th>
-                    <input
-                      type="radio"
-                      aria-label="Radio button for following text input"
-                    />
-                  </th>
-                  <td scope="row">1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th>
-                    <input
-                      type="radio"
-                      aria-label="Radio button for following text input"
-                    />
-                  </th>
-                  <td scope="row">1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
+                
+                <% test.forEach((item)=> { %>
+                  <% if( (item.date.getMonth() > d.getMonth() && item.date.getFullYear() >= d.getFullYear()) || (item.date.getMonth()==d.getMonth() && item.date.getDate()>=d.getDate()&& item.date.getFullYear() >= d.getFullYear()) || (item.date.getMonth()==d.getMonth() && item.date.getDate()==d.getDate()&& item.date.getFullYear() >= d.getFullYear() && item.date.getHours() >= d.getHours() ) ){ %>
+                  <tr>
+                    <td scope="row"> <%=item.polyclinicName%>  </td>
+                    <td><%=item.testName%></td>
+                    <td><%=item.date.getFullYear()%> - <%=(item.date.getMonth()+1)%> - <%=item.date.getDate()%> Saat: <%=(item.date.getHours()-3)%>:<%=item.date.getMinutes()%> </td>
+                    <% if(!item.testResult) {%>
+                      <td>Tahlil Sonucu Girilmemiştir</td>
+                    <% } %>
+                    <% if(item.testResult) {%>
+                        <td><%=item.testResult%></td>
+                    <% } %>
+                  </tr>
+                  <% } %>
+                <% }) %>  
+                
+                
+
               </tbody>
             </table>
           </div>
           <div class="card-footer text-muted">
             <div class="row">
               <div class="col pt-2">
-                <p>Toplam Sayfa: <span class="badge-primary p-1">25</span></p>
+                <p>Toplam Sayfa: <span class="badge-primary p-1 pl-2 pr-2"><%= pages %></span></p>
               </div>
               <div class="col">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
-                    </li>
+                <% if (pages > 0) { %>
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                      <% if (current == 1) { %>
+                        <li class="page-item disabled"><a class="page-link" >İlk</a></li>
+                      <% } else { %>
+                        <li class="page-item "><a class="page-link" href="/patients/appointment/1"  tabindex="-1">İlk</a></li>
+                      <% } %>
+                      <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                      <% if (i !== 1) { %>
+                        <li class="page-item disabled"><a class="page-link" >...</a></li>
+                      <% } %>
+                      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                          <% if (i == current) { %>
+                              <li class="page-item active"><a class="page-link" ><%= i %></a></li>
+                          <% } else { %>
+                              <li class="page-item "><a class="page-link" href="/patients/appointment/<%= i %>"><%= i %></a></li>
+                          <% } %>
+                          <% if (i == Number(current) + 4 && i < pages) { %>
+                              <li class="page-item disabled"><a class="page-link" >...</a></li>
+                          <% } %>
+                      <% } %>
+                      <% if (current == pages) { %>
+                          <li class="page-item disabled"><a class="page-link" >Son</a></li>
+                      <% } else { %>
+                          <li class="page-item "><a class="page-link" href="/patients/appointment/<%= pages %>">Son</a></li>
+                      <% } %>
                   </ul>
-                </nav>
+              <% } %>
               </div>
             </div>
           </div>
@@ -240,10 +180,21 @@
       </div>
     </div>
   </div>
-  <div class="text-center fa-xs">
-    <p>
-      Soru ve sorunlarınız için yardimmasasi@mhrs.gov.tr adresimizi kullanarak
-      bize ulaşabilirsiniz.
-    </p>
+
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+
+    $('#datePicker').datetimepicker({
+        timepicker: true,
+        datepicker: true,
+        format: 'Y-m-d H:i',
+        value: '10-03-2020 09:00',
+        step: 15,
+        allowTimes: ['09:00','09:15','09:30','09:45','10:00','10:15','10:30','10:45','11:00','11:15','11:30','11:45','13:00','13:15','13:30','13:45','14:00','14:15','14:30','14:45','15:00','15:15','15:30','15:45','16:00','16:15','16:30','16:45']
+    })
+</script>

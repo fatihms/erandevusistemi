@@ -1,0 +1,224 @@
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="container">
+    <a class="navbar-brand font-weight-bold" href="/patients/appointment/1"><span class="fa fa-hospital-o" ></span> E-Randevu</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent-4"
+      aria-controls="navbarSupportedContent-4"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+      
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/patients/appointment/1">
+            Randevu Oluştur
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/patients/appointment-past/1">Randevu Geçmişi</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/patients/appointment-request/1">Randevu Tapleplerim</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/patients/test-result/1">Sonuçlarım</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink-4"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i> Profil
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right dropdown-info"
+            aria-labelledby="navbarDropdownMenuLink-4"
+          >
+            <a class="dropdown-item" href="/patients/patient">Hesap Bilgilerim</a>
+            <a class="dropdown-item" href="/users/logout">Çıkış</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <!--/.Navbar -->
+  
+<div class="container">
+    <div class="card card-body border-light shadow mt-4">
+      <div class="row">
+
+        <div class="col bg-light">
+          <h1 class="text-center mb-3 mt-3">
+            <i class="fas fa-user"></i> Kullanıcı Bilgileriniz
+          </h1>
+          <span><hr/></span>
+         <div class="row">
+             <div class="col">
+                <h6 class="text-left mb-3 ml-5">
+                    <i class="fas fa-user pr-2"></i> Ad 
+                </h6>  
+             </div>
+             
+             <div class="col">
+                : <%= user.name %>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col">
+               <h6 class="text-left mb-3 ml-5">
+                   <i class="fas fa-user pr-2"></i> Soyad 
+               </h6>  
+            </div>
+            
+            <div class="col">
+               : <%= user.surname %>
+           </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col">
+               <h6 class="text-left mb-3 ml-5">
+                   <i class="fas fa-envelope pr-2"></i> E-mail 
+               </h6>  
+            </div>
+            
+            <div class="col">
+               : <%= user.email %>
+           </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+             <h6 class="text-left mb-3 ml-5">
+                 <i class="fas fa-id-card pr-2"></i> TC
+             </h6>  
+          </div>
+          
+          <div class="col">
+             : <%= user.TC %>
+         </div>
+      </div>
+
+        <div class="row">
+            <div class="col">
+               <h6 class="text-left mb-3 ml-5">
+                   <i class="fas fa-venus-mars pr-2"></i> Cinsiyet 
+               </h6>  
+            </div>
+            
+            <div class="col">
+            <%  if(user.gender){ %> 
+              : <%= "Erkek" %>
+              <% }else{%> 
+                : <%= "Kadın" %>
+                <%  } %> 
+             
+           </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+             <h6 class="text-left mb-3 ml-5">
+                 <i class="fas fa-baby-carriage pr-2"></i> Yaş 
+             </h6>  
+          </div>
+          
+          <div class="col">
+             : <%= user.age %>
+         </div>
+      </div>
+
+        <div class="row">
+            <div class="col">
+               <h6 class="text-left mb-3 ml-5">
+                   <i class="fas fa-calendar-alt pr-2"></i> Kayıt Tarihi 
+               </h6>  
+            </div>
+            
+            <div class="col">
+                : <%= user.date %>
+           </div>
+        </div>
+
+        </div>
+
+
+        <div class="col">
+          <h1 class="text-center mb-3 mt-3">
+            <i class="fas fa-sign-in-alt "></i> Bilgilerini Güncelle
+          </h1>
+          <span><hr/></span>
+          <p class="bg-light p-2 alert-warning ">* Sadece güncellemek istediğiniz alanları değiştirin lütfen.</p>
+          <form action="/patients/patient" method="POST">
+            <div class= "row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name" class="font-weight-bold">Ad</label>
+                        <input
+                          type="name"
+                          id="name"
+                          name="name"
+                          class="form-control"
+                          placeholder="Yeni adınızı giriniz"
+                          value="<%= user.name %>"
+                        />
+                      </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="surname" class="font-weight-bold">Soyad</label>
+                        <input
+                          type="surname"
+                          id="surname"
+                          name="surname"
+                          class="form-control"
+                          placeholder="Yeni soyadınızı giriniz"
+                          value="<%= user.surname %>"
+                        />
+                      </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="font-weight-bold">E-mail</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Yeni emailinizi giriniz"
+                  value="<%= user.email %>"
+                />
+              </div>
+          
+            <button type="submit" class="btn btn-primary btn-block">
+              Güncelle
+            </button>
+          </form>
+          
+        </div>
+
+     </div>
+ </div>
+</div>
+      

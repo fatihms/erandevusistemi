@@ -9,6 +9,10 @@ const UserShema = new mongoose.Schema({
         type:String,
         required: true
     },
+    TC:{
+        type:String,
+        required: true
+    },
     email:{
         type:String,
         required: true
@@ -20,6 +24,13 @@ const UserShema = new mongoose.Schema({
     age:{
         type:Number,
         required: false
+    },
+    position:{
+        type:String,
+        required: false
+    },
+    gender:{
+        type:Boolean
     },
     date:{
         type:Date,

@@ -18,11 +18,11 @@ router.get('/forget', (req, res) => res.render('forget'))
 
 //Kayıt kontrol
 router.post('/register', (req, res) => {
-    const{name, surname, email, password, password2} = req.body;
+    const{name, surname, TC, email, password, password2} = req.body;
     let errors = [];
 
     //Boş alan kontrolü
-    if(!name || !email || !password || !password2){
+    if(!name || !surname || !TC || !email || !password || !password2){
         errors.push({msg:'Lütfen boş alan bırakmayınız'})
     }
 
@@ -39,6 +39,8 @@ router.post('/register', (req, res) => {
         res.render('register',{
             errors,
             name,
+            surname,
+            TC,
             email,
             password,
             password2
@@ -52,6 +54,8 @@ router.post('/register', (req, res) => {
               res.render('register', {
                     errors,
                     name,
+                    surname,
+                    TC,
                     email,
                     password,
                     password2
@@ -61,6 +65,7 @@ router.post('/register', (req, res) => {
                 const newUser = new User({
                     name,
                     surname,
+                    TC,
                     email,
                     password
                 })
@@ -85,8 +90,8 @@ router.post('/register', (req, res) => {
 //Login handle
 router.post('/login', (req, res, next) => {
     //Server’a gelen bir yetkilendirme yani oturum açma isteğini uygun şekilde karşılanır
-    passport.authenticate('local', {
-      successRedirect: '/dashboard', //Başarılı olursa dashboard sayfasına gider
+    passport.authenticate('user', {
+      successRedirect: '/patients/appointment/1', //Başarılı olursa dashboard sayfasına gider
       failureRedirect: '/users/login', //Hata olursa login sayfasına tekrar döner
       failureFlash: true //PassportJs yetkilendirme sırasında oluşacak hatayı kullanıcıya kendiliğinden gösterecek
     })(req, res, next)
